@@ -1,6 +1,6 @@
 # 💸 Transactly – Paytm Clone (Digital Wallet & UPI Payment Web App)
 
-**PayNexa** is a full-stack fintech web application inspired by Paytm. It allows users to manage digital payments, wallet balance, and utility bill transactions in a secure and intuitive interface.
+**Transactly** is a full-stack fintech web application inspired by Paytm. It allows users to manage digital payments, wallet balance, and utility bill transactions in a secure and intuitive interface.
 
 ---
 
