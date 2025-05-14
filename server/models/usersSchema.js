@@ -4,7 +4,11 @@ const userSchema = new mongoose.Schema({
     userName: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        unique: true,
+        lowercase: true,
+        minLength: 3,
+        maxLength: 30
     },
     email: {
         type: String,
@@ -14,16 +18,21 @@ const userSchema = new mongoose.Schema({
     firstName: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        maxLength: 50,
+        minLength: 1
     },
     lastName: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        maxLength: 50,
+        minLength: 1
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minLength: 8
     }
 });
 

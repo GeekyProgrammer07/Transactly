@@ -1,8 +1,9 @@
-const User = require("../models/Users")
+const User = require("../models/usersSchema")
 const bcrypt = require('bcrypt')
 const { signupSchema, signinSchema, updateInfoSchema } = require('../validations/types')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = require("../config/config")
+const Account = require("../models/accountSchema")
 
 //Signup
 exports.signup = async (req, res) => {
@@ -20,7 +21,7 @@ exports.signup = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({
+    const user = await User.create({
         userName: username,
         email: email,
         firstName,
@@ -28,17 +29,15 @@ exports.signup = async (req, res) => {
         password: hashedPassword
     });
 
-    await user.save();
+    const userId = user._id;
 
-    const token = jwt.sign(
-        { userId: user._id, username: username, email: email },
-        process.env.JWT_SECRET,
-        { noTimestamp: true, expiresIn: '1h' }
-    );
+    const account = await Account.create({
+        userId,
+        balance: Math.floor(Math.random() * 100001)
+    });
 
     res.status(201).json({ //201 Created
-        message: "User Created Successfully",
-        token: `Bearer ` + token
+        message: "User Created Successfully"
     });
 };
 
@@ -114,7 +113,7 @@ exports.getUsers = async (req, res) => {
 
         const users = await User.find({
             $or: [
-                { firstName: { $regex: filter, $options: 'i' } }, 
+                { firstName: { $regex: filter, $options: 'i' } },
                 { lastName: { $regex: filter, $options: 'i' } }
             ]
         });
