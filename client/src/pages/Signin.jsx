@@ -30,7 +30,6 @@ export const Signin = () => {
             placeholder="123456"
             label={"Password"}
           />
-          <div>Password is {password}</div>
           <div className="pt-4">
             <Button
               onClick={() => onClickHandler({ email, password })}
